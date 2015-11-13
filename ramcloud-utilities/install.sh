@@ -28,12 +28,17 @@ cd $SCRIPTDIR
 
 echo "---> Installing RAMCloud utility scripts"
 
-ln -s $SCRIPTDIR/rcdo $BINDIR/rcdo
-ln -s $SCRIPTDIR/rcdop $BINDIR/rcdop
-ln -s $SCRIPTDIR/rckill $BINDIR/rckill
-ln -s $SCRIPTDIR/rckillp $BINDIR/rckillp
-ln -s $SCRIPTDIR/rcps $BINDIR/rcps
-ln -s $SCRIPTDIR/rcremount $BINDIR/rcremount
+if [ $# -eq 1 ]
+then
+    ../link.sh $SCRIPTDIR/rcdo $BINDIR/rcdo
+    ../link.sh $SCRIPTDIR/rcdop $BINDIR/rcdop
+    ../link.sh $SCRIPTDIR/rckill $BINDIR/rckill
+    ../link.sh $SCRIPTDIR/rckillp $BINDIR/rckillp
+    ../link.sh $SCRIPTDIR/rcps $BINDIR/rcps
+    ../link.sh $SCRIPTDIR/rcremount $BINDIR/rcremount
+else
+    echo "Error: Missing target bin directory."
+fi
 
 echo "---> Done"
 

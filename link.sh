@@ -15,32 +15,29 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ################################################################################
-# install script for ipmi tools
+# helper script that links and checks the provided script
 
-# Remember current directory so we can go back
-WD="$(pwd)"
+TARGET=$1
+LINK=$2
 
-SCRIPTDIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
-BINDIR="$(cd $1 && pwd)"
+NAME="$(basename $LINK)"
 
-# Move the scripts directory for simiplicity
-cd $SCRIPTDIR
-
-echo "---> Installing IPMI tools"
-
-if [ $# -eq 1 ]
+if [ -L $LINK ]
 then
-    ../link.sh $SCRIPTDIR/rcreboot $BINDIR/rcreboot
-    ../link.sh $SCRIPTDIR/rcrebootall $BINDIR/rcrebootall
-    ../link.sh $SCRIPTDIR/rcshutdown $BINDIR/rcshutdown
-    ../link.sh $SCRIPTDIR/rcstartup $BINDIR/rcstartup
-    ../link.sh $SCRIPTDIR/rcstatus $BINDIR/rcstatus
-    ../link.sh $SCRIPTDIR/rczap $BINDIR/rczap
-else
-    echo "Error: Missing target bin directory."
+    rm $LINK
 fi
 
-echo "---> Done"
+if [ -a $LINK ]
+then
+    echo "Error: Can't install $LINK : File exists"
+else
+    ln -s $TARGET $LINK
+fi
 
-# Back to original working dirctory
-cd $WD
+echo "---> Checking installation of $NAME"
+
+which rcres > /dev/null 2>&1
+if [ $? -ne 0 ]
+then
+    echo "Warning: $LINK not a command in PATH"
+fi

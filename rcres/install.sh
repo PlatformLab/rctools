@@ -28,33 +28,22 @@ cd $SCRIPTDIR
 
 echo "---> Installing rcres"
 
-if [[ ! -d db ]]
+if [ $# -eq 1 ]
 then
-    mkdir db
-fi
+    if [[ ! -d db ]]
+    then
+        mkdir db
+    fi
 
-chmod 777 db
+    chmod 777 db
 
-if [ -L $BINDIR/rcres ]
-then
-    rm $BINDIR/rcres
-fi
-
-if [ -a $BINDIR/rcres ]
-then
-    echo "Error: Can't install $BINDIR/rcres : File exists"
+    ../link.sh $SCRIPTDIR/rcres.py $BINDIR/rcres
 else
-    ln -s $SCRIPTDIR/rcres.py $BINDIR/rcres
+    echo "Error: Missing target bin directory."
 fi
 
-echo "---> Checking installation of rcres"
-
-which rcres > /dev/null 2>&1
-if [ $? -ne 0 ]
-then
-    echo "Warning: $BINDIR/rcres not a command in PATH"
-fi
 echo "---> Done"
 
 # Back to original working dirctory
 cd $WD
+
