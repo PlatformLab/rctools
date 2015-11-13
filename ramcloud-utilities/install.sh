@@ -19,22 +19,21 @@
 
 # Remember current directory so we can go back
 WD="$(pwd)"
-# Move the scripts directory for simiplicity
-cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-CURDIR="$(pwd)"
-BINDIR=$1
+SCRIPTDIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+BINDIR="$(cd $1 && pwd)"
+
+# Move the scripts directory for simiplicity
+cd $SCRIPTDIR
 
 echo "---> Installing RAMCloud utility scripts"
 
-mkdir db
-chmod 777 db
-ln -s $CURDIR/rcdo $BINDIR/rcdo
-ln -s $CURDIR/rcdop $BINDIR/rcdop
-ln -s $CURDIR/rckill $BINDIR/rckill
-ln -s $CURDIR/rckillp $BINDIR/rckillp
-ln -s $CURDIR/rcps $BINDIR/rcps
-ln -s $CURDIR/rcremount $BINDIR/rcremount
+ln -s $SCRIPTDIR/rcdo $BINDIR/rcdo
+ln -s $SCRIPTDIR/rcdop $BINDIR/rcdop
+ln -s $SCRIPTDIR/rckill $BINDIR/rckill
+ln -s $SCRIPTDIR/rckillp $BINDIR/rckillp
+ln -s $SCRIPTDIR/rcps $BINDIR/rcps
+ln -s $SCRIPTDIR/rcremount $BINDIR/rcremount
 
 echo "---> Done"
 

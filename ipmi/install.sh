@@ -19,20 +19,21 @@
 
 # Remember current directory so we can go back
 WD="$(pwd)"
-# Move the scripts directory for simiplicity
-cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-CURDIR="$(pwd)"
-BINDIR=$1
+SCRIPTDIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+BINDIR="$(cd $1 && pwd)"
+
+# Move the scripts directory for simiplicity
+cd $SCRIPTDIR
 
 echo "---> Installing IPMI tools"
 
-ln -s $CURDIR/rcreboot $BINDIR/rcreboot
-ln -s $CURDIR/rcrebootall $BINDIR/rcrebootall
-ln -s $CURDIR/rcshutdown $BINDIR/rcshutdown
-ln -s $CURDIR/rcstartup $BINDIR/rcstartup
-ln -s $CURDIR/rcstatus $BINDIR/rcstatus
-ln -s $CURDIR/rczap $BINDIR/rczap
+ln -s $SCRIPTDIR/rcreboot $BINDIR/rcreboot
+ln -s $SCRIPTDIR/rcrebootall $BINDIR/rcrebootall
+ln -s $SCRIPTDIR/rcshutdown $BINDIR/rcshutdown
+ln -s $SCRIPTDIR/rcstartup $BINDIR/rcstartup
+ln -s $SCRIPTDIR/rcstatus $BINDIR/rcstatus
+ln -s $SCRIPTDIR/rczap $BINDIR/rczap
 
 echo "---> Done"
 
