@@ -23,19 +23,19 @@ Usage:
   rcres permalock <server_ids>... [-m MSG]
   rcres unlock <ids>...
   rcres --help
-
+  
   rcres ls [-l] [<cluster>]
   rcres l <time> <server_ids>... [-m MSG]
   rcres ul [<server_ids>...]
   rcres pl <server_ids>... [-m MSG]
   rcres upl <ids>...
-
+  
 Arguments:
   <time>        Lease expiration time (ex: 6pm, 6:00pm, 18:00, 24h, 1d).
   <server_ids>  List of server ids to lease or lock; (ex: rc1-20, rcmonster).
   <ids>         List of ids to unlock; can be servers, users, or lockgroups.
   <cluster>     Name of cluster whoes status will be printed (ex: rc, misc)
-
+  
 Options:
   -h --help              Show this help message and exit.
   --version              Show version.
@@ -58,6 +58,9 @@ from lockfile import LockFile
 import time
 
 from config import *
+
+# Full path to the persisted reservation file
+RESFILE = os.path.dirname(os.path.realpath(__file__)) + '/db/activeLeaseDB'
 
 CANONFORMAT = {}
 SERVERS = {}
