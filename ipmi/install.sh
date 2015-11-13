@@ -15,28 +15,26 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ################################################################################
-# Top-level install script for rctools
+# install script for ipmi tools
 
 # Remember current directory so we can go back
 WD="$(pwd)"
+# Move the scripts directory for simiplicity
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-if [ $# -eq 1 ]
-then
-    BINDIR="$(cd $1 && pwd)"
+CURDIR="$(pwd)"
+BINDIR=$1
 
-    # Move the scripts directory for simiplicity
-    cd "$( dirname "${BASH_SOURCE[0]}" )"
+echo "---> Installing IPMI tools"
 
-    echo "====== Installing rctools ======"
+ln -s $CURDIR/rcreboot $BINDIR/rcreboot
+ln -s $CURDIR/rcrebootall $BINDIR/rcrebootall
+ln -s $CURDIR/rcshutdown $BINDIR/rcshutdown
+ln -s $CURDIR/rcstartup $BINDIR/rcstartup
+ln -s $CURDIR/rcstatus $BINDIR/rcstatus
+ln -s $CURDIR/rczap $BINDIR/rczap
 
-    ./rcres/install.sh $BINDIR
-    ./ipmi/install.sh $BINDIR
-    ./ramcloud-utilities/install.sh $BINDIR
-
-    echo "=== Done - rctools installed ==="
-else
-    echo "Error: Missing target bin directory."
-fi
+echo "---> Done"
 
 # Back to original working dirctory
 cd $WD

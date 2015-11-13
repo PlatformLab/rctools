@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for host in $(rcres ls -l | grep "$(whoami)" | cut -c13-16 | grep "rc[0-9]"); do
+  rcreboot $host
+done

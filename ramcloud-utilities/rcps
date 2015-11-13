@@ -1,0 +1,2 @@
+#!/bin/bash
+rcdo "hostname; ps axjf | egrep 'killpid|server|coordinator|client|backup|ensureServers|ib_send|nc ' | egrep -v 'dhclient|grep'"

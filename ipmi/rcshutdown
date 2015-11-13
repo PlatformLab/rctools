@@ -1,0 +1,1 @@
+ipmitool -I lanplus -H ${1}ipmi -U ADMIN -f ~/RHEL6_Cluster/ipmi_password.txt power off

@@ -1,0 +1,6 @@
+i=1
+while [ $i -le 40 ]; do
+    host=`printf "rc%02d" $i`
+    ssh root@${host} "mount -o remount,noatime,nodiratime,commit=3600 /"
+    i=`expr $i + 1`
+done

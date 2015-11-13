@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ $# -ge 1 ]; then
+	rcdop "pkill $*"
+else
+	rcdop "pkill server; pkill coordinator; pkill client; pkill ensureServers; pkill ClusterPerf; pkill killpid; pkill recovery; kill -9 \$(pidof java) > /dev/null 2>&1; kill -9 \$(pidof sh) > /dev/null 2>&1"
+fi

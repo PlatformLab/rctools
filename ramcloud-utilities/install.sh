@@ -15,28 +15,28 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ################################################################################
-# Top-level install script for rctools
+# install script for RAMCloud related utilities tools
 
 # Remember current directory so we can go back
 WD="$(pwd)"
+# Move the scripts directory for simiplicity
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-if [ $# -eq 1 ]
-then
-    BINDIR="$(cd $1 && pwd)"
+CURDIR="$(pwd)"
+BINDIR=$1
 
-    # Move the scripts directory for simiplicity
-    cd "$( dirname "${BASH_SOURCE[0]}" )"
+echo "---> Installing RAMCloud utility scripts"
 
-    echo "====== Installing rctools ======"
+mkdir db
+chmod 777 db
+ln -s $CURDIR/rcdo $BINDIR/rcdo
+ln -s $CURDIR/rcdop $BINDIR/rcdop
+ln -s $CURDIR/rckill $BINDIR/rckill
+ln -s $CURDIR/rckillp $BINDIR/rckillp
+ln -s $CURDIR/rcps $BINDIR/rcps
+ln -s $CURDIR/rcremount $BINDIR/rcremount
 
-    ./rcres/install.sh $BINDIR
-    ./ipmi/install.sh $BINDIR
-    ./ramcloud-utilities/install.sh $BINDIR
-
-    echo "=== Done - rctools installed ==="
-else
-    echo "Error: Missing target bin directory."
-fi
+echo "---> Done"
 
 # Back to original working dirctory
 cd $WD

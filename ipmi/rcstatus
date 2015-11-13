@@ -1,0 +1,7 @@
+#!/bin/bash
+for i in master nfs test {01..80}; do
+    power=`ipmitool -I lanplus -H rc${i}ipmi -U ADMIN -f ~/RHEL6_Cluster/ipmi_password.txt chassis status |grep "System Power" | awk '{ print $4 }'`
+    temp=`ipmitool -I lanplus -H rc${i}ipmi -U ADMIN -f ~/RHEL6_Cluster/ipmi_password.txt sdr list |grep "System Temp" | awk '{ print $4 " deg C" }'`
+    fans=`ipmitool -I lanplus -H rc${i}ipmi -U ADMIN -f ~/RHEL6_Cluster/ipmi_password.txt sdr list |grep -i ^fan | cut -d '|' -f 2 | awk '{ print $1 }' |grep -v disabled | grep -v no | tr '\n' ' '`
+    echo "rc$i: power $power, system temp $temp, fans ${fans}RPM"
+done
