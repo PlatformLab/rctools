@@ -19,18 +19,41 @@
 
 # Remember current directory so we can go back
 WD="$(pwd)"
-# Move the scripts directory for simiplicity
-cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-CURDIR="$(pwd)"
-BINDIR=$1
+SCRIPTDIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+BINDIR="$(cd $1 && pwd)"
+
+# Move the scripts directory for simiplicity
+cd $SCRIPTDIR
 
 echo "---> Installing rcres"
 
-mkdir db
-chmod 777 db
-ln -s $CURDIR/rcres.py $BINDIR/rcres
+if [[ ! -d db ]]
+then
+    mkdir db
+fi
 
+chmod 777 db
+
+if [ -L $BINDIR/rcres ]
+then
+    rm $BINDIR/rcres
+fi
+
+if [ -a $BINDIR/rcres ]
+then
+    echo "Error: Can't install $BINDIR/rcres : File exists"
+else
+    ln -s $SCRIPTDIR/rcres.py $BINDIR/rcres
+fi
+
+echo "---> Checking installation of rcres"
+
+which rcres > /dev/null 2>&1
+if [ $? -ne 0 ]
+then
+    echo "Warning: $BINDIR/rcres not a command in PATH"
+fi
 echo "---> Done"
 
 # Back to original working dirctory
