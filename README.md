@@ -7,5 +7,5 @@ This repo contains internal cluster management tools used in the Stanford RAMClo
 3. Run the ```install.sh``` script in the top-level ```rctools``` directory providing the desired target bin directory:
    ```rctools/install.sh /usr/local/bin```
 
-## Dependancies
+## Dependencies
 - rcres requires the python ```lockfile``` package which can be installed using ```pip```
