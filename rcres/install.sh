@@ -37,6 +37,10 @@ then
 
     chmod 777 db
 
+    touch db/activeLeaseDB
+
+    chmod 666 db/activeLeaseDB
+
     ../link.sh $SCRIPTDIR/rcres.py $BINDIR/rcres
 else
     echo "Error: Missing target bin directory."
