@@ -41,6 +41,14 @@ then
 
     chmod 666 db/activeLeaseDB
 
+    if [[ ! -f config.py ]]
+    then
+        cp default_config.py config.py
+        echo "---> Adding default config"
+    else
+        echo "---> Using existing config"
+    fi
+
     ../link.sh $SCRIPTDIR/rcres.py $BINDIR/rcres
 else
     echo "Error: Missing target bin directory."
