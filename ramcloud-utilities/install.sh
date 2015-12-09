@@ -30,12 +30,16 @@ echo "---> Installing RAMCloud utility scripts"
 
 if [ $# -eq 1 ]
 then
+    ../link.sh $SCRIPTDIR/rcresls $BINDIR/rcresls
+    ../link.sh $SCRIPTDIR/rcrebootAll $BINDIR/rcrebootAll
     ../link.sh $SCRIPTDIR/rcdo $BINDIR/rcdo
     ../link.sh $SCRIPTDIR/rcdop $BINDIR/rcdop
     ../link.sh $SCRIPTDIR/rckill $BINDIR/rckill
     ../link.sh $SCRIPTDIR/rckillp $BINDIR/rckillp
     ../link.sh $SCRIPTDIR/rcps $BINDIR/rcps
     ../link.sh $SCRIPTDIR/rcremount $BINDIR/rcremount
+    ../link.sh $SCRIPTDIR/rczap $BINDIR/rczap
+    ../link.sh $SCRIPTDIR/rczapAll $BINDIR/rczapAll
 else
     echo "Error: Missing target bin directory."
 fi

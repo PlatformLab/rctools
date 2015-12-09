@@ -1,4 +1,5 @@
 #!/bin/bash
 for host in $(rcresls); do
-	ssh -o StrictHostKeyChecking=no $host $*
+	echo $host
+	rczap $host
 done

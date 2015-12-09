@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Glue logic between rcres and the rc-scripts. Returns a list of
+# machines leased by the current user in a format that is iterable
+# by bash scripts (i.e. "rc[0-9][0-9]*"). Optionally, the first
+# argument can name the user to filter the rcres output by.
+#
+# Examples:
+#     rcresls
+#     rcresls ouster
+#
+#
+
+if [[ "$1" == "" ]]
+  then
+  USER=$(whoami)
+else
+  USER="$1"
+fi
+
+rcres ls -l | grep $USER | cut -c13-16 | grep "rc[0-9]"

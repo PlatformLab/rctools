@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for host in $(rcresls); do
+  rcreboot $host
+done
