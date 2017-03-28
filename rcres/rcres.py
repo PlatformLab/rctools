@@ -44,7 +44,7 @@ Options:
 """
 
 __author__ = "Collin Lee (cstlee)"
-__version__ = "0.3"
+__version__ = "0.3.1"
 
 from docopt import docopt
 import pickle
@@ -54,8 +54,8 @@ import math
 import re
 from getpass import getuser
 from subprocess import call
-from lockfile import LockFile
 import time
+import fasteners
 
 from config import *
 
@@ -316,13 +316,12 @@ def rcres(user, args):
         idList = generateRequestList(args['<ids>'])
         unlockList(idList, user, True)
 
+@fasteners.interprocess_locked(RESFILE)
 def main(args):
-    lock = LockFile(RESFILE)
-    with lock:
-        readResFile()
-        cleanSTATUS()
-        rcres(getuser(), args)
-        flushResFile()
+    readResFile()
+    cleanSTATUS()
+    rcres(getuser(), args)
+    flushResFile()
 
 if __name__ == '__main__':
     arguments = docopt(__doc__, version='rcres %s' % __version__)

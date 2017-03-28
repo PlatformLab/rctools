@@ -8,4 +8,4 @@ This repo contains internal cluster management tools used in the Stanford RAMClo
    ```rctools/install.sh /usr/local/bin```
 
 ## Dependencies
-- rcres requires the python ```lockfile``` package which can be installed using ```pip```
+- rcres requires the python ```fasteners``` package which can be installed using ```pip```
