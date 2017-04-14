@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-# Copyright (c) 2014-2015 Stanford University
+# Copyright (c) 2014-2017 Stanford University
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -44,7 +44,7 @@ Options:
 """
 
 __author__ = "Collin Lee (cstlee)"
-__version__ = "0.3.1"
+__version__ = "0.3.1.1"
 
 from docopt import docopt
 import pickle
@@ -76,8 +76,12 @@ def readResFile():
     try:
         with open(RESFILE, 'r') as ifile:
             STATUS = pickle.load(ifile)
-    except:
+    except EOFError:
         pass
+    except:
+        print("ERROR: Unable to load lease database.")
+        raise SystemExit()
+
 
 def flushResFile():
     try:
